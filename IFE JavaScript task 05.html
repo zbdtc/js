@@ -88,18 +88,18 @@
       
     }
 	  
-	function sort(){
-	  var arr = element.children;
+    function sort(){
+      var arr = element.children;
       for(var i = 0; i < arr.length-1; i++){
-	    for(j = i + 1; j < arr.length; j++){
-		  if(arr[i].offsetHeight > arr[j].offsetHeight){
-		    var x = arr[i].style.height
-			arr[i].style.height = arr[j].style.height;
-			arr[j].style.height = x;
-		  }
-		}
+        for(j = i + 1; j < arr.length; j++){
+	  if(arr[i].offsetHeight > arr[j].offsetHeight){
+	    var x = arr[i].style.height
+	    arr[i].style.height = arr[j].style.height;
+	    arr[j].style.height = x;
 	  }
 	}
+      }
+    }
   </script>
 </body>
 </html>
