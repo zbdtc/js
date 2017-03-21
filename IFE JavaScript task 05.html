@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>IFE JavaScript Task 05</title>
+  <style>
+	#div1{
+	  display: -moz-box;
+	  -moz-box-align: end;
+	  display: -webkit-box;
+	  -webkit-box-align: end;
+	  height: 200px; 
+	}
+    .num{
+      background:red;
+      margin: 2px ;
+      color:white;
+	  width: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="number">
+  <button type="button" onclick="leftInsert()">left insert</button>
+  <button type="button" onclick="leftDelete()">left delete</button>
+  <button type="button" onclick="rightInsert()">right insert</button>
+  <button type="button" onclick="rightDelete()">right delete</button>
+  <button type="button" onclick="sort()">sort</button>
+   
+  <div id="div1"></div>
+
+  <script>
+    var element = document.getElementById("div1") //div1  
+
+    function createDiv(h){  //创建p元素，并添加到div1中
+      var para = document.createElement("p");
+      para.className="num";
+      para.style.height = 2*h+"px";
+      para.ondblclick = function(){element.removeChild(this)}; //双击自身后删除自身
+      return para; 
+    } 
+  
+	function getData(){ //获取input的文本,并转化为number类型
+	  var text = document.getElementsByTagName("input")[0].value; //获取文本
+      if(text>100 || text <10){  //限制输入数字范围
+        alert("the number must between 10 to 100!");
+        return false;
+      }
+	  var h = parseInt(text); //把获取的文本转化为number类型
+	  return h;	
+	}  
+
+    function leftInsert(){
+	  var arr = element.children;//获取div的子元素
+      if(arr.length> 59){
+        alert("the number of must less 60");
+        return; 
+      } 
+	  var h = getData();
+	  if(!h) return;//如果函数getData返回false,跳出函数 
+      var para = createDiv(h);
+      var first = element.firstChild;
+      element.insertBefore(para,first);
+    } 
+   
+    function rightInsert(){
+	  var arr = element.children;
+      if(arr.length > 59){
+        alert("the number of must less 60");
+        return;
+      } 
+	  var h = getData();
+	  if(!h) return;//如果函数getData返回false,跳出函数
+      var para = createDiv(h);
+      element.appendChild(para);
+    }
+    
+    function leftDelete(){
+      var child = element.firstChild;
+      element.removeChild(child);
+      
+    }
+
+    function rightDelete(){
+      var child = element.lastChild;
+      element.removeChild(child);
+      
+    }
+	  
+	function sort(){
+	  var arr = element.children;
+      for(var i = 0; i < arr.length-1; i++){
+	    for(j = i + 1; j < arr.length; j++){
+		  if(arr[i].offsetHeight > arr[j].offsetHeight){
+		    var x = arr[i].style.height
+			arr[i].style.height = arr[j].style.height;
+			arr[j].style.height = x;
+		  }
+		}
+	  }
+	}
+  </script>
+</body>
+</html>
