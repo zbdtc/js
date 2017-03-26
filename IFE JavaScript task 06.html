@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .num{
+      background:red;
+      float:left;
+      margin:2px;
+      color:white;
+      border: red solid 1px;
+    }
+
+    .aaa{
+      color:black;
+	  background: yellow;
+    }
+  </style>
+</head>
+
+<body>
+  <textarea></textarea>
+  <button type="button" onclick="leftInsert()">left insert</button>
+  <button type="button" onclick="leftDelete()">left delete</button>
+  <button type="button" onclick="rightInsert()">right insert</button>
+  <button type="button" onclick="rightDelete()">right delete</button>
+  <input type="text" id="search">
+  <button type="button" onclick="search()"> test</button>
+
+  <div id="div1"></div>
+
+  <script>
+    var element = document.getElementById("div1") //div1
+
+    function createP(arr){  //创建p元素
+      var para = document.createElement("p");
+      para.className="num";
+      var node = document.createTextNode(arr);
+      para.appendChild(node);
+      para.ondblclick = function(){element.removeChild(this)};//
+      return para;
+    }
+
+    function getData(){ //获取textarea文本
+      var text = document.getElementsByTagName("textarea")[0].value;
+      var arr = text.split(/[\r,，.。\s]/);
+      return arr;
+    }
+
+    function leftInsert(){
+      var arr = getData();
+      for(var i = 0; i < arr.length; i++){
+        var para = createP(arr[i]);
+        var first = element.firstChild;
+        element.insertBefore(para,first);
+      }
+    }
+   
+    function rightInsert(){
+	  var arr = getData();
+      for(var i = 0; i < arr.length; i++){
+        var para = createP(arr[i]);
+        element.appendChild(para);
+      }		
+    }
+    
+    function leftDelete(){
+      var child = element.firstChild;
+      element.removeChild(child);
+    }
+
+    function rightDelete(){
+      var child = element.lastChild;
+      element.removeChild(child);
+    }
+
+    function search(){ //匹配
+      var str = document.getElementById("search").value;
+      var reg = RegExp(str,"g");
+      var paras = document.getElementById("div1").getElementsByTagName("p");
+      for(var i = 0; i < paras.length; i++){
+        var str2 = paras[i].innerHTML;
+        str3 = str2.replace(reg,"<span class=\"aaa\">$&</span>");
+        paras[i].innerHTML=str3;
+      }
+    }
+  </script>
+    
+
+</body>
+</html>
